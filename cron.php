@@ -1,0 +1,1 @@
+<?php $file = __DIR__ . "/db/cpu.json"; $load = sys_getloadavg()[0]; $time = time(); $data = []; if (file_exists($file)) { $data = json_decode(file_get_contents($file), true); } $data[] = ["t" => $time,"v" => $load]; $data = array_slice($data, -100); file_put_contents($file, json_encode($data));
