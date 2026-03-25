@@ -1,6 +1,6 @@
 <?php
 session_start();
-$config = require 'conf.php';
+$config = require 'conf/conf.php';
 
 if (isset($_SESSION['login'])) {
   header('Location: index.php');
