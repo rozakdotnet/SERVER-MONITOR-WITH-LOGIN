@@ -1,0 +1,1 @@
+<?php require "part/head.php";?><section><link href="css/srv.css" rel="stylesheet"/><h2>ALL SERVICES</h2><div class="card"><table id="serviceTable"><thead><tr><th>Service</th><th>Status</th></tr></thead><tbody></tbody></table></div><script rel="javascript" src="js/srv.js" type="text/javascript"></script></section><?php require "part/foot.php";?>
