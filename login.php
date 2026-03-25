@@ -1,33 +1,5 @@
-<?php
-session_start();
-$config = require 'conf/conf.php';
-
-if (isset($_SESSION['login'])) {
-  header('Location: index.php');
-  exit;
-}
-
-$error = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if ($_POST['username'] === $config['username'] &&
-      password_verify($_POST['password'], $config['password'])) {
-
-    $_SESSION['login'] = true;
-    $_SESSION['last'] = time();
-
-    header('Location: index.php');
-    exit;
-  } else {
-    $error = "Login salah";
-  }
-}
-?>
-
-<form method="POST">
-  <h2>Server Login</h2>
-  <?php if($error) echo "<p>$error</p>"; ?>
-  <input name="username" placeholder="Username" required>
-  <input name="password" type="password" placeholder="Password" required>
-  <button>Login</button>
-</form>
+<?php session_start(); $config = require 'conf/conf.php'; $imgBg = $config['site']['background']; if (isset($_SESSION['user'])) { header('Location: index.php'); exit; } $error = ''; if ($_SERVER['REQUEST_METHOD'] === 'POST') { $username = $_POST['username'] ?? ''; $password = $_POST['password'] ?? ''; if (isset($config['users'][$username]) && password_verify($password, $config['users'][$username])) { $_SESSION['user'] = $username; $_SESSION['last'] = time(); echo <<<HTML
+<!doctypehtml><title>Loading...</title><script>setTimeout(() => {
+    window.location.href = 'index.php';
+}, 2000);</script><style>*{font-family:"Cutive Mono",monospace}html{background:url($imgBg) no-repeat fixed;background-size:cover;height:100%}body{height:100%;background:#ffffff7a;color:#111;display:flex;justify-content:center;align-items:center;margin:0}</style><body><svg height=300 viewBox="0 0 200 200"width=300 xmlns=http://www.w3.org/2000/svg><circle cx=35 cy=100 fill=#584E54 r=15 stroke=#584E54 stroke-width=25><animate attributeName=cx begin=0 calcMode=spline dur=2 keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1"repeatCount=indefinite values=35;165;165;35;35 /></circle><circle cx=35 cy=100 fill=#584E54 r=15 stroke=#584E54 stroke-width=25 opacity=.8><animate attributeName=cx begin=0.05 calcMode=spline dur=2 keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1"repeatCount=indefinite values=35;165;165;35;35 /></circle><circle cx=35 cy=100 fill=#584E54 r=15 stroke=#584E54 stroke-width=25 opacity=.6><animate attributeName=cx begin=.1 calcMode=spline dur=2 keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1"repeatCount=indefinite values=35;165;165;35;35 /></circle><circle cx=35 cy=100 fill=#584E54 r=15 stroke=#584E54 stroke-width=25 opacity=.4><animate attributeName=cx begin=.15 calcMode=spline dur=2 keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1"repeatCount=indefinite values=35;165;165;35;35 /></circle><circle cx=35 cy=100 fill=#584E54 r=15 stroke=#584E54 stroke-width=25 opacity=.2><animate attributeName=cx begin=.2 calcMode=spline dur=2 keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1"repeatCount=indefinite values=35;165;165;35;35 /></circle></svg> 
+HTML; exit;} else {$error = 'Wrong Username / Password';}} ?><!DOCTYPE html><html><head><title>Login</title><meta name="robots" content="noindex,nofollow"><link rel="icon" type="image/png" href="img/dtserver.png" sizes="128x128"><meta name="description" content="Website HOMESERVER"><meta property="og:title" content="HOMESERVER - HOMESERVER"><meta property="og:type" content="website"><meta property="og:image" content="img/netwrks.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap" rel="stylesheet"></head><body><div class="container"><h2>Login</h2><?php if ($error) echo "<p style='color:red'>$error</p>"; ?><form method="POST"><div class="row"><input name="username" placeholder="Username" type="text" required></div><div class="row"><input name="password" placeholder="Password" type="Password" required></div><div class="row"><input type="submit" value="Submit"></div></form></div><style>input[type=text],input[type=password],select,textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:4px;box-sizing:border-box;resize:vertical}label{padding:12px 12px 12px 0;display:inline-block}input[type=submit]{background-color:#555a58;color:#fff;padding:12px 20px;border:none;border-radius:4px;cursor:pointer;float:right}.container{border-radius:5px;background-color:#f2f2f2;padding:25px;width:90%;max-width:350px}.row:after{content:"";display:table;clear:both}*{font-family:"Cutive Mono",monospace}html{background:url(<?php echo $imgBg?>) no-repeat fixed;background-size:cover;height:100%}body{height:100%;background:#ffffff7a;color:#111;display:flex;justify-content:center;align-items:center;margin:0}input{width:100%;margin-bottom:10px;background:rgb(0 0 0 / .3);border:none;outline:none;padding:10px;font-size:14px;color:#fff;text-shadow:1px 1px 1px rgb(0 0 0 / .3);border:1px solid rgb(0 0 0 / .3);border-radius:4px;box-shadow:inset 0 -5px 45px rgb(100 100 100 / .2),0 1px 1px rgb(255 255 255 / .2);-webkit-transition:box-shadow .5s ease;-moz-transition:box-shadow .5s ease;-o-transition:box-shadow .5s ease;-ms-transition:box-shadow .5s ease;transition:box-shadow .5s ease}input:focus{box-shadow:inset 0 -5px 45px rgb(100 100 100 / .4),0 1px 1px rgb(255 255 255 / .2)}</style></body></html>
